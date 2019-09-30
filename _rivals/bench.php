@@ -26,6 +26,6 @@ for($i = 0; $i < $N; $i++) {
   preg_match($pat, $UnmatchString);
 }
 $end = microtime(true);
-printf(" - php's regexp (%d times): %.2f us / op\n", $N, floatval($end-$beg) * 1000000.0 / floatval($N));
+printf(" - php's trie2regexp (%d times): %.2f us / op\n", $N, floatval($end-$beg) * 1000000.0 / floatval($N));
 
 ?>

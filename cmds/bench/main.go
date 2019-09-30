@@ -24,7 +24,7 @@ func main() {
 		end := time.Now()
 		elapsedInMicro := end.Sub(beg).Microseconds()
 		regexTime = float64(elapsedInMicro) / float64(N)
-		fmt.Printf(" - golang's regexp (%d times): %f us / op\n", N, regexTime)
+		fmt.Printf(" - golang's trie2regexp (%d times): %f us / op\n", N, regexTime)
 	}
 
 	{
