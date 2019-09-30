@@ -12,7 +12,7 @@ please see [rival](https://github.com/ledyba/go-trie/tree/master/_rivals) direct
  % make bench
  - php's trie2regexp (10000 times): 583.44 us / op
  - v8's trie2regexp (100000 times): 4.22 us / op
- - golang's regexp (1000 times): 2415.712000 us / op
+ - golang's trie2regexp (1000 times): 2415.712000 us / op
  - go-trie (10000 times): 38.492500 us / op (x 62.76)
 
 ```
@@ -23,7 +23,8 @@ please see [rival](https://github.com/ledyba/go-trie/tree/master/_rivals) direct
 package test
 
 import (
-  trie "github.com/ledyba/go-trie"
+  "testing"
+  "github.com/ledyba/go-trie/types/trie"
 )
 
 func TestReadme(t *testing.T) {
