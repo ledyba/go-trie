@@ -6,7 +6,7 @@ It runs faster than [trie to regex](http://google.com/search?q=trie+2+regex) app
 
 # Performance
 
-please see [rival]() directory to benchmarks in other languages.
+please see [rival](https://github.com/ledyba/go-trie/tree/master/_rivals) directory to benchmarks in other languages.
 
 ```bash
  % make bench
