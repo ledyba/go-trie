@@ -5,16 +5,16 @@ import (
 )
 
 type Trie struct {
-	nodes []node
+	nodes   []node
 	entries []nodeEntry
 }
 
 type node struct {
 	isEnd bool
-	next []nodeEntry
+	next  []nodeEntry
 }
 
-type nodeEntry struct{
+type nodeEntry struct {
 	chr byte
 	idx uint16
 }
@@ -31,16 +31,16 @@ func New() Trie {
 func fill(entries *[]nodeEntry, t *Trie, n *node) {
 	*entries = append(*entries, n.next...)
 	for i := range n.next {
-		fill(entries, t , &t.nodes[n.next[i].idx])
+		fill(entries, t, &t.nodes[n.next[i].idx])
 	}
 }
 
 func pack(entries []nodeEntry, t *Trie, n *node, idx int) int {
 	t.entries = entries
-	n.next = t.entries[idx:idx+len(n.next)]
+	n.next = t.entries[idx : idx+len(n.next)]
 	idx += len(n.next)
 	for i := range n.next {
-		idx = pack(entries, t , &t.nodes[n.next[i].idx], idx)
+		idx = pack(entries, t, &t.nodes[n.next[i].idx], idx)
 	}
 	return idx
 }
@@ -57,11 +57,11 @@ func (t *Trie) Pack() int {
 
 func (t *Trie) Add(str string) {
 	n := 0
-	for i := 0; i < len(str); i++ {
-		s := str[i]
+	bytes := *(*[]byte)(unsafe.Pointer(&str))
+	for _, b := range bytes {
 		nextNode := -1
 		for j := range t.nodes[n].next {
-			if t.nodes[n].next[j].chr == s{
+			if t.nodes[n].next[j].chr == b {
 				nextNode = int(t.nodes[n].next[j].idx)
 				break
 			}
@@ -72,7 +72,7 @@ func (t *Trie) Add(str string) {
 				isEnd: false,
 				next:  nil,
 			})
-			t.nodes[n].next = append(t.nodes[n].next, nodeEntry{chr: s, idx: uint16(idx)})
+			t.nodes[n].next = append(t.nodes[n].next, nodeEntry{chr: b, idx: uint16(idx)})
 			nextNode = idx
 		}
 		n = nextNode
@@ -81,14 +81,14 @@ func (t *Trie) Add(str string) {
 }
 func (t *Trie) Match(str string) bool {
 	n := 0
-	for i := 0; i < len(str); i++ {
+	bytes := *(*[]byte)(unsafe.Pointer(&str))
+	for _, b := range bytes {
 		if t.nodes[n].isEnd {
 			return true
 		}
 		nextNode := -1
-		s := str[i]
 		for j := range t.nodes[n].next {
-			if t.nodes[n].next[j].chr == s {
+			if t.nodes[n].next[j].chr == b {
 				nextNode = int(t.nodes[n].next[j].idx)
 				break
 			}

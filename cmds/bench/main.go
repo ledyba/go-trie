@@ -15,7 +15,7 @@ func main() {
 	}
 	var regexTime float64
 	var trieTime float64
-	{
+	if false {
 		N := 1000
 		beg := time.Now()
 		for i := 0; i < N; i++ {
@@ -24,7 +24,7 @@ func main() {
 		end := time.Now()
 		elapsedInMicro := end.Sub(beg).Microseconds()
 		regexTime = float64(elapsedInMicro) / float64(N)
-		fmt.Printf(" - golang's trie2regexp (%d times): %f us / op\n", N, regexTime)
+		fmt.Printf(" - golang's trie2regexp (%d times): %.2f us / op\n", N, regexTime)
 	}
 
 	{
@@ -36,6 +36,6 @@ func main() {
 		end := time.Now()
 		elapsedInMicro := end.Sub(beg).Microseconds()
 		trieTime = float64(elapsedInMicro) / float64(N)
-		fmt.Printf(" - go-trie (%d times): %f us / op (x %.2f)\n", N, trieTime, regexTime/trieTime)
+		fmt.Printf(" - go-trie (%d times): %.2f us / op (x %.2f)\n", N, trieTime, regexTime/trieTime)
 	}
 }

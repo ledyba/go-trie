@@ -8,7 +8,7 @@ bench: clean
 .bin:
 	@mkdir -p .bin
 
-.bin/bench: .bin
+.bin/bench: .bin $(shell find . -type f -name *.go)
 	@go build -o .bin/bench github.com/ledyba/go-trie/cmds/bench
 
 clean:
