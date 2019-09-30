@@ -16,6 +16,7 @@ func BenchmarkUnmatchTrie(b *testing.B) {
 	if err != nil {
 		b.Fatal(err)
 	}
+	t.Pack()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		t.Contains(UnmatchTestString)

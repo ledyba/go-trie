@@ -1,24 +1,59 @@
 # go-trie
 
-A trie tree implementation in git.
+[A trie tree](https://en.wikipedia.org/wiki/Trie) implementation in golang.
 
 It runs faster than [trie to regex]() approach more than 50 times (Please see the benchmark below).
 
 ## how to use?
 
-[Please see test codes]().
+```go
+package test
 
-# Result
+import (
+  trie "github.com/ledyba/go-trie"
+)
+
+func TestReadme(t *testing.T) {
+  tr := trie.New() // Animes.
+  tr.Add("NewGame!")
+  tr.Add("School Live!")
+  tr.Add("Urara Meiro Chou")
+  tr.Add("Yuki Yuna Is a Hero")
+  tr.Add("Non Non Biyori.")
+  tr.Add("Anne Happy")
+  tr.Add("Kiniro Mosaic")
+  tr.Pack()
+
+  // Match method
+  if tr.Match("NewGame!") == false {
+    t.Error("NewGame! is a first season of the series.")
+  }
+  if tr.Match("NewGame!!") == false {
+    t.Error("NewGame!! is a second season of the series.")
+  }
+  if tr.Match("NewGame") == true {
+    t.Error("Not NewGame. NewGame\"!\"")
+  }
+
+  // Contains method
+  if tr.Contains("I would like to eat udon with Fuu Inubozaki, a hero in \"Yuki Yuna Is a Hero\".") == false {
+    t.Error("What????? Why????")
+  }
+  if tr.Contains("Alas, Ikaruga is going...") == true {
+    t.Error("Ikaruga is a game. Not an animation.")
+  }
+}
+```
+
+# Performance
+
+please see [rival] directory to benchmarks in other languages.
 
 ```bash
  % make bench
-[Baseline] benchmarking php's regexp (10000 times).
- - result: 568.002391 us / op
+ - php's regexp (10000 times): 583.44 us / op
+ - v8's regexp (100000 times): 4.22 us / op
+ - golang's regexp (1000 times): 2415.712000 us / op
+ - go-trie (10000 times): 38.492500 us / op (x 62.76)
 
-[Baseline] benchmarking golang's regexp (1000 times).
- - result: 2379.605000 us / op
-
-[Ours] benchmarking trie (100000 times).
- - result: 37.644730 us / op
-2019/09/30 16:09:05 Trie is faster 63.21 fastar than regex!
 ```

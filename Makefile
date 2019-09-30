@@ -1,4 +1,4 @@
-.PHONY: run bench bench-all FORCE;
+.PHONY: run bench build bench-all bench-other bench-go FORCE;
 
 run: bench;
 
@@ -14,9 +14,13 @@ bench: clean
 clean:
 	@rm -Rf .bin/ bench
 
-bench-all: .bin/bench FORCE
-	@php others/bench.php
-	@echo ""
-	@node others/bench.js
-	@echo ""
+bench-all: bench-other bench-go;
+
+build: .bin/bench;
+
+bench-go: clean .bin/bench FORCE
 	@.bin/bench
+
+bench-other: FORCE
+	@php _rivals/bench.php
+	@node _rivals/bench.js

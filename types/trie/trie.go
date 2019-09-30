@@ -1,15 +1,22 @@
 package trie
 
+import (
+	"unsafe"
+)
+
 type Trie struct {
 	nodes []node
+	entries []nodeEntry
 }
 
 type node struct {
 	isEnd bool
-	next []struct{
-		chr byte
-		idx int
-	}
+	next []nodeEntry
+}
+
+type nodeEntry struct{
+	chr byte
+	idx uint16
 }
 
 func New() Trie {
@@ -21,6 +28,33 @@ func New() Trie {
 	}
 }
 
+func fill(entries *[]nodeEntry, t *Trie, n *node) {
+	*entries = append(*entries, n.next...)
+	for i := range n.next {
+		fill(entries, t , &t.nodes[n.next[i].idx])
+	}
+}
+
+func pack(entries []nodeEntry, t *Trie, n *node, idx int) int {
+	t.entries = entries
+	n.next = t.entries[idx:idx+len(n.next)]
+	idx += len(n.next)
+	for i := range n.next {
+		idx = pack(entries, t , &t.nodes[n.next[i].idx], idx)
+	}
+	return idx
+}
+
+func (t *Trie) Pack() int {
+	entries := make([]nodeEntry, 0)
+	fill(&entries, t, &t.nodes[0])
+	pack(entries, t, &t.nodes[0], 0)
+	t.entries = entries
+	beg := unsafe.Pointer(&entries[0])
+	end := unsafe.Pointer(&entries[1])
+	return int(uintptr(end)-uintptr(beg)) * len(entries)
+}
+
 func (t *Trie) Add(str string) {
 	n := 0
 	for i := 0; i < len(str); i++ {
@@ -28,7 +62,7 @@ func (t *Trie) Add(str string) {
 		nextNode := -1
 		for j := range t.nodes[n].next {
 			if t.nodes[n].next[j].chr == s{
-				nextNode = t.nodes[n].next[j].idx
+				nextNode = int(t.nodes[n].next[j].idx)
 				break
 			}
 		}
@@ -38,10 +72,7 @@ func (t *Trie) Add(str string) {
 				isEnd: false,
 				next:  nil,
 			})
-			t.nodes[n].next = append(t.nodes[n].next, struct {
-				chr  byte
-				idx int
-			}{chr: s, idx: idx})
+			t.nodes[n].next = append(t.nodes[n].next, nodeEntry{chr: s, idx: uint16(idx)})
 			nextNode = idx
 		}
 		n = nextNode
@@ -58,7 +89,7 @@ func (t *Trie) Match(str string) bool {
 		s := str[i]
 		for j := range t.nodes[n].next {
 			if t.nodes[n].next[j].chr == s {
-				nextNode = t.nodes[n].next[j].idx
+				nextNode = int(t.nodes[n].next[j].idx)
 				break
 			}
 		}
