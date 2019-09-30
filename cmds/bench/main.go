@@ -16,7 +16,7 @@ func main() {
 	var regexTime float64
 	var trieTime float64
 	{
-		N := 1000
+		N := 10000
 		fmt.Printf("[Baseline] benchmarking golang's regexp (%d times).\n", N)
 		beg := time.Now()
 		for i := 0; i < N; i++ {
@@ -25,13 +25,13 @@ func main() {
 		end := time.Now()
 		elapsedInMicro := end.Sub(beg).Microseconds()
 		fmt.Printf(" - result: %f us / op\n", float64(elapsedInMicro)/float64(N))
-		regexTime = float64(elapsedInMicro)/float64(N)
+		regexTime = float64(elapsedInMicro) / float64(N)
 	}
 
 	fmt.Println()
 
 	{
-		N := 100000
+		N := 10000
 		fmt.Printf("[Ours] benchmarking trie (%d times).\n", N)
 		beg := time.Now()
 		for i := 0; i < N; i++ {
@@ -40,7 +40,7 @@ func main() {
 		end := time.Now()
 		elapsedInMicro := end.Sub(beg).Microseconds()
 		fmt.Printf(" - result: %f us / op\n", float64(elapsedInMicro)/float64(N))
-		trieTime = float64(elapsedInMicro)/float64(N)
+		trieTime = float64(elapsedInMicro) / float64(N)
 	}
 
 	log.Printf("Trie is faster %.2f fastar than regex!", regexTime/trieTime)

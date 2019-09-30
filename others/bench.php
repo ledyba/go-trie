@@ -28,6 +28,6 @@ for($i = 0; $i < $N; $i++) {
   preg_match($pat, $UnmatchString);
 }
 $end = microtime(true);
-printf(" - result: %f us / op\n\n", ($end-$beg) * 1000000 / floatval($N));
+printf(" - result: %f us / op\n", ($end-$beg) * 1000 / floatval($N));
 
 ?>
