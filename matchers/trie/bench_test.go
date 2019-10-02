@@ -12,13 +12,13 @@ func BenchmarkUnmatchRegex(b *testing.B) {
 }
 
 func BenchmarkUnmatchTrie(b *testing.B) {
-	t, err := TestTrieTree(`../../words.txt`)
+	tr, err := TestTrieTree(`../../words.txt`)
 	if err != nil {
 		b.Fatal(err)
 	}
-	t.Pack()
+	tr.Pack()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		t.Contains(UnmatchTestString)
+		tr.Contains(UnmatchTestString)
 	}
 }

@@ -2,7 +2,7 @@ package trie
 
 import "testing"
 
-func TestZoi(t *testing.T) {
+func TestSlimZoi(t *testing.T) {
 	tr := New()
 	tr.Add("zoi")
 	tr.Add("java")
@@ -46,7 +46,7 @@ func TestZoi(t *testing.T) {
 	}
 }
 
-func TestContains(t *testing.T) {
+func TestSlimContains(t *testing.T) {
 	tr := New()
 	tr.Add("うらにわ")
 	tr.Add("おおにわとり")
@@ -68,7 +68,7 @@ func TestContains(t *testing.T) {
 	}
 }
 
-func TestReadme(t *testing.T) {
+func TestSlimReadme(t *testing.T) {
 	tr := New() // Animes.
 	tr.Add("NewGame!")
 	tr.Add("School Live!")

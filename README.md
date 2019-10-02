@@ -24,7 +24,7 @@ package test
 
 import (
   "testing"
-  "github.com/ledyba/go-trie/types/trie"
+  "github.com/ledyba/go-trie/matchers/trie"
 )
 
 func TestReadme(t *testing.T) {

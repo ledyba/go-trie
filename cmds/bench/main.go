@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/ledyba/go-trie/types/trie"
+	"github.com/ledyba/go-trie/matchers/trie"
 )
 
 func main() {

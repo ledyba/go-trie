@@ -45,5 +45,5 @@ func TestTrieTree(fname string) (*Trie, error) {
 	if err := s.Err(); err != nil {
 		return nil, err
 	}
-	return &t, nil
+	return t, nil
 }
