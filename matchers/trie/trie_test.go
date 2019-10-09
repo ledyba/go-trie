@@ -93,14 +93,14 @@ func TestSlimReadme(t *testing.T) {
 	if tr.Match("NewGame!") == false {
 		t.Error("NewGame! is a first season of the series.")
 	}
+	if tr.Match("NewGame!!") == false {
+		t.Error("NewGame!! is a second season of the series.")
+	}
 	if tr.Match("NewGame") == true {
 		t.Error("Not NewGame. NewGame\"!\"")
 	}
 	if !tr.Match("Dojin Work") == false {
 		t.Error("Not Dojin Work. \"Dōjin Work\"")
-	}
-	if tr.Match("NewGame") == true {
-		t.Error("Not NewGame. NewGame\"!\"")
 	}
 
 	// Contains method
