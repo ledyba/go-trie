@@ -20,11 +20,14 @@ UnmatchString = `
 `;
 
 {
+  let n = 0;
   const beg = Date.now();
   for (let i = 0; i < N; i++) {
-    pat.exec(UnmatchString);
+    if(!pat.exec(UnmatchString)){
+      n++;
+    }
   }
   const end = Date.now();
-  console.log(` - v8's trie2regex: ${(end - beg) * 1000.0 / N} us/op (${N} times)`);
+  console.log(` - v8's trie2regex: ${(end - beg) * 1000.0 / n} us/op (${n} times)`);
 }
 

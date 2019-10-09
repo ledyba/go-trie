@@ -20,12 +20,15 @@ $UnmatchString = <<<EOD
 EOD;
 
 $N = 10000;
+$n = 0;
 
 $beg = microtime(true);
 for($i = 0; $i < $N; $i++) {
-  preg_match($pat, $UnmatchString);
+  if(!preg_match($pat, $UnmatchString)){
+    $n++;
+  }
 }
 $end = microtime(true);
-printf(" - php's trie2regex: %.2f us/op (%d times)\n", floatval($end-$beg) * 1000000.0 / floatval($N), $N);
+printf(" - php's trie2regex: %.2f us/op (%d times)\n", floatval($end-$beg) * 1000.0 * 1000.0 / floatval($n), $n);
 
 ?>

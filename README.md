@@ -57,7 +57,7 @@ func TestSlimReadme(t *testing.T) {
 	if tr.Match("NewGame") == true {
 		t.Error("Not NewGame. NewGame\"!\"")
 	}
-	if !tr.Match("Dojin Work") == false {
+	if tr.Match("Dojin Work") == true {
 		t.Error("Not Dojin Work. \"Dōjin Work\"")
 	}
 
