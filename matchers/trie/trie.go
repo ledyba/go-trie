@@ -55,32 +55,6 @@ func (tr *Trie) Pack() int {
 	return int(uintptr(end)-uintptr(beg)) * len(entries)
 }
 
-func fillSlim(entries *[]uint32, t *Trie, n *node) int {
-	if n.isEnd {
-		return -1
-	}
-	beg := len(*entries)
-	{ // reserve spaces
-		for range n.next {
-			*entries = append(*entries, 0)
-		}
-		*entries = append(*entries, 0)
-	}
-	//
-	for i := range n.next {
-		next := &t.nodes[n.next[i].idx]
-		ent := uint32(0)
-		if next.isEnd {
-			ent = uint32(0xffffff00) | uint32(n.next[i].chr)
-		} else {
-			nextIdx := fillSlim(entries, t, next)
-			ent = uint32(nextIdx)<<8 | uint32(n.next[i].chr)
-		}
-		(*entries)[beg+i] = ent
-	}
-	return beg
-}
-
 func (tr *Trie) Add(str string) {
 	n := 0
 	bytes := *(*[]byte)(unsafe.Pointer(&str))
