@@ -106,25 +106,26 @@ func (tr *Trie) Add(str string) {
 	tr.nodes[n].isEnd = true
 }
 func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
-	n := 0
+	n := &tr.nodes[0]
 	for ib := from; ib < len(bytes); ib++ {
 		b := bytes[ib]
-		if tr.nodes[n].isEnd {
+		if n.isEnd {
 			return true
 		}
-		nextNode := -1
-		for j := range tr.nodes[n].next {
-			if tr.nodes[n].next[j].chr == b {
-				nextNode = int(tr.nodes[n].next[j].idx)
+		var nextNode *node = nil
+		for j := range n.next {
+			next := &n.next[j]
+			if next.chr == b {
+				nextNode = &tr.nodes[next.idx]
 				break
 			}
 		}
-		if nextNode < 0 {
+		if nextNode == nil {
 			return false
 		}
 		n = nextNode
 	}
-	return tr.nodes[n].isEnd
+	return n.isEnd
 }
 func (tr *Trie) MatchBytes(bytes []byte) bool {
 	return tr.MatchBytesFrom(bytes, 0)
@@ -134,9 +135,21 @@ func (tr *Trie) Match(str string) bool {
 }
 func (tr *Trie) Contains(str string) bool {
 	bytes := *(*[]byte)(unsafe.Pointer(&str))
-	for i := range bytes {
+	bytesLen := len(bytes)
+	for i := 0; i < bytesLen; {
 		if tr.MatchBytesFrom(bytes, i) {
 			return true
+		}
+		// see: https://tools.ietf.org/html/rfc3629
+		b := bytes[i]
+		if b&0b11110000 == 0b11110000 {
+			i += 4
+		} else if b&0b11100000 == 0b11100000 {
+			i += 3
+		} else if b&0b11000000 == 0b11000000 {
+			i += 2
+		} else {
+			i += 1
 		}
 	}
 	return false

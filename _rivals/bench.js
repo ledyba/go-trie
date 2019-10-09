@@ -25,6 +25,6 @@ UnmatchString = `
     pat.exec(UnmatchString);
   }
   const end = Date.now();
-  console.log(` - v8's trie2regexp (${N} times): ${(end - beg) * 1000.0 / N} us / op`);
+  console.log(` - v8's trie2regex: ${(end - beg) * 1000.0 / N} us/op (${N} times)`);
 }
 
