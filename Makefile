@@ -23,6 +23,7 @@ bench-go: clean .bin/bench FORCE
 
 perf: clean .bin/bench FORCE
 	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches .bin/bench
+	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches node _rivals/bench.js
 
 bench-other: FORCE
 	@php _rivals/bench.php

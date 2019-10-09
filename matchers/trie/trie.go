@@ -113,7 +113,8 @@ func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
 			return true
 		}
 		var nextNode *node = nil
-		for j := range n.next {
+		nexts := n.next
+		for j := range nexts {
 			next := &n.next[j]
 			if next.chr == b {
 				nextNode = &tr.nodes[next.idx]
