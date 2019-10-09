@@ -1,4 +1,4 @@
-.PHONY: run bench build bench-all bench-other bench-go FORCE;
+.PHONY: run bench perf build bench-all bench-other bench-go FORCE;
 
 run: bench;
 
@@ -20,6 +20,9 @@ build: .bin/bench;
 
 bench-go: clean .bin/bench FORCE
 	@.bin/bench
+
+perf: clean .bin/bench FORCE
+	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches .bin/bench
 
 bench-other: FORCE
 	@php _rivals/bench.php

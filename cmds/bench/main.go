@@ -15,7 +15,7 @@ func main() {
 	}
 	var regexTime float64
 	var trieTime float64
-	{
+	if false {
 		N := 1000
 		beg := time.Now()
 		for i := 0; i < N; i++ {

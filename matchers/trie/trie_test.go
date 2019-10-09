@@ -70,21 +70,34 @@ func TestSlimContains(t *testing.T) {
 
 func TestSlimReadme(t *testing.T) {
 	tr := New() // Animes.
+	// kirara
 	tr.Add("NewGame!")
 	tr.Add("School Live!")
-	tr.Add("Urara Meiro Chou")
-	tr.Add("Yuki Yuna Is a Hero")
-	tr.Add("Non Non Biyori.")
+	tr.Add("Urara Meirocho")
 	tr.Add("Anne Happy")
 	tr.Add("Kiniro Mosaic")
+	tr.Add("Hanayamata")
+	tr.Add("Is the order a rabbit?")
+	tr.Add("Is the order a rabbit??")
+	tr.Add("The Demon Girl Next Door")
+	tr.Add("Hidamari Sketch")
+	tr.Add("Blend S")
+	tr.Add("Dōjin Work")
+	tr.Add("Magic of Stella")
+	// semi-kirara
+	tr.Add("Yuki Yuna Is a Hero")
+	tr.Add("Non Non Biyori")
 	tr.Pack()
 
 	// Match method
 	if tr.Match("NewGame!") == false {
 		t.Error("NewGame! is a first season of the series.")
 	}
-	if tr.Match("NewGame!!") == false {
-		t.Error("NewGame!! is a second season of the series.")
+	if tr.Match("NewGame") == true {
+		t.Error("Not NewGame. NewGame\"!\"")
+	}
+	if !tr.Match("Dojin Work") == false {
+		t.Error("Not Dojin Work. \"Dōjin Work\"")
 	}
 	if tr.Match("NewGame") == true {
 		t.Error("Not NewGame. NewGame\"!\"")
