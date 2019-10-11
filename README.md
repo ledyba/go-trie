@@ -1,6 +1,7 @@
 # go-trie
 
 [![Build Status](https://travis-ci.org/ledyba/go-trie.svg?branch=master)](https://travis-ci.org/ledyba/go-trie)
+[![Coverage Status](https://coveralls.io/repos/github/ledyba/go-trie/badge.svg?branch=master)](https://coveralls.io/github/ledyba/go-trie?branch=master)
 
 [A trie tree](https://en.wikipedia.org/wiki/Trie) implementation in golang.
 

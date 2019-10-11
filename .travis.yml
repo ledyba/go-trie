@@ -1,9 +1,6 @@
 language: go
 go:
-  - 1.13
-
-env:
-  - GO111MODULE="on"
+  - "1.13"
 
 before_install:
   - pip install --user codecov
