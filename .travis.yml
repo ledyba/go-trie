@@ -2,4 +2,4 @@ language: go
 go:
   - 1.13
 script:
-  - go test -coverprofile github.com/ledyba/go-trie/matchers/trie
+  - go test -race -coverprofile=coverage.txt -covermode=atomic "github.com/ledyba/go-trie/matchers/trie/..."
