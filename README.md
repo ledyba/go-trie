@@ -1,5 +1,7 @@
 # go-trie
 
+[![Build Status](https://travis-ci.org/ledyba/go-trie.svg?branch=master)](https://travis-ci.org/ledyba/go-trie)
+
 [A trie tree](https://en.wikipedia.org/wiki/Trie) implementation in golang.
 
 It runs faster than [trie to regex](http://google.com/search?q=trie+2+regex) approach more than 100 times (vs golang's regex engine; Please see the benchmark below).
