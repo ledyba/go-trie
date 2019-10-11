@@ -46,7 +46,7 @@ import (
   "github.com/ledyba/go-trie/matchers/trie"
 )
 
-func TestSlimReadme(t *testing.T) {
+func TestReadme(t *testing.T) {
 	tr := trie.New() // Animes.
 	// kirara
 	tr.Add("NewGame!")
