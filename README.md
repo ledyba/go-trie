@@ -27,7 +27,7 @@ import (
 )
 
 func TestSlimReadme(t *testing.T) {
-	tr := New() // Animes.
+	tr := trie.New() // Animes.
 	// kirara
 	tr.Add("NewGame!")
 	tr.Add("School Live!")

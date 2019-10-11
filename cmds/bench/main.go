@@ -5,14 +5,16 @@ import (
 	"log"
 	"time"
 
+	"github.com/ledyba/go-trie/matchers/test_util"
 	"github.com/ledyba/go-trie/matchers/trie"
 )
 
 func main() {
-	tr, err := trie.TestTrieTree("words.txt")
+	words, err := test_util.ReadWords("words.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
+	tr := trie.FromWords(words)
 	var regexTime float64
 	var trieTime float64
 	if false {
@@ -20,7 +22,7 @@ func main() {
 		n := 0
 		beg := time.Now()
 		for i := 0; i < N; i++ {
-			if !trie.TestRegex.MatchString(trie.UnmatchTestString) {
+			if !test_util.TestRegex.MatchString(test_util.UnmatchTestString) {
 				n++
 			}
 		}
@@ -35,7 +37,7 @@ func main() {
 		n := 0
 		beg := time.Now()
 		for i := 0; i < N; i++ {
-			if !tr.Contains(trie.UnmatchTestString) {
+			if !tr.Contains(test_util.UnmatchTestString) {
 				n++
 			}
 		}

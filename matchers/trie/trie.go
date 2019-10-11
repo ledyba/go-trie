@@ -27,7 +27,14 @@ func New() *Trie {
 		}},
 	}
 }
-
+func FromWords(words []string) *Trie {
+	tr := New()
+	for _, str := range words {
+		tr.Add(str)
+	}
+	tr.Pack()
+	return tr
+}
 func fill(entries *[]nodeEntry, t *Trie, n *node) {
 	*entries = append(*entries, n.next...)
 	for i := range n.next {
