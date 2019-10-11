@@ -92,7 +92,7 @@ func TestReadme(t *testing.T) {
 
 ```
 
-You can see other examples in the [unit test](https://github.com/ledyba/go-trie/blob/master/types/trie/trie_test.go) file.
+You can see other examples in the [unit test](https://github.com/ledyba/go-trie/blob/master/matchers/trie/trie_test.go) file.
 
 # LICENSE
 
