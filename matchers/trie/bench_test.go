@@ -9,17 +9,13 @@ import (
 
 func BenchmarkUnmatchDghubbleTrie(b *testing.B) {
 	tr := derekparker.New()
-	words, err := test_util.ReadWords(`../../words.txt`)
-	if err != nil {
-		b.Fatal(err)
-	}
-	for _, str := range words {
+	for _, str := range test_util.Words {
 		tr.Add(str, struct{}{})
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		for j := range test_util.UnmatchTestString {
-			if tr.HasKeysWithPrefix(test_util.UnmatchTestString[j:]) {
+		for j := range test_util.UnmatchString {
+			if tr.HasKeysWithPrefix(test_util.UnmatchString[j:]) {
 				b.Error("Should Unmatch!")
 			}
 		}
@@ -29,20 +25,16 @@ func BenchmarkUnmatchDghubbleTrie(b *testing.B) {
 func BenchmarkUnmatchRegex(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		if test_util.TestRegex.MatchString(test_util.UnmatchTestString) {
+		if test_util.RegexPattern.MatchString(test_util.UnmatchString) {
 			b.Error("Should Unmatch!")
 		}
 	}
 }
 func BenchmarkUnmatchTrie(b *testing.B) {
-	words, err := test_util.ReadWords(`../../words.txt`)
-	if err != nil {
-		b.Fatal(err)
-	}
-	tr := FromWords(words)
+	tr := FromWords(test_util.Words)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		if tr.Contains(test_util.UnmatchTestString) {
+		if tr.Contains(test_util.UnmatchString) {
 			b.Error("Should Unmatch!")
 		}
 	}
