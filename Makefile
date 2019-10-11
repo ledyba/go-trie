@@ -11,15 +11,19 @@ bench: clean
 .bin/bench: .bin $(shell find . -type f -name *.go)
 	@go build -o .bin/bench github.com/ledyba/go-trie/cmds/bench
 
+.bin/bench-regexp: .bin $(shell find . -type f -name *.go)
+	@go build -o .bin/bench-regexp github.com/ledyba/go-trie/cmds/bench-regexp
+
 clean:
 	@rm -Rf .bin/ bench
 
-bench-all: bench-other bench-go;
+bench-all: bench-go bench-other;
 
 build: .bin/bench;
 
-bench-go: clean .bin/bench FORCE
+bench-go: clean .bin/bench .bin/bench-regexp FORCE
 	@.bin/bench
+	@.bin/bench-regexp
 
 perf: clean .bin/bench FORCE
 	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches .bin/bench
