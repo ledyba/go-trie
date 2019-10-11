@@ -76,3 +76,9 @@ func TestSlimReadme(t *testing.T) {
 ```
 
 You can see other examples in the [unit test](https://github.com/ledyba/go-trie/blob/master/types/trie/trie_test.go) file.
+
+# LICENSE
+
+Licensed under 2-clause BSD license.
+
+This software uses materials from the wikipedia article [五稜郭](https://ja.wikipedia.org/wiki/%E4%BA%94%E7%A8%9C%E9%83%AD) and [ポケモン一覧](https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E4%B8%80%E8%A6%A7), which is released under the <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share-Alike License 3.0</a>.
