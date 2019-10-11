@@ -1,5 +1,18 @@
 language: go
 go:
+  - 1.11
+  - 1.12
   - 1.13
+
+before_install:
+  - pip install --user codecov
+  - go get github.com/axw/gocov/gocov
+  - go get github.com/mattn/goveralls
+  - go get golang.org/x/tools/cmd/cover
+
 script:
   - go test -race -coverprofile=coverage.txt -covermode=atomic "github.com/ledyba/go-trie/matchers/trie/..."
+  - (cd matchers/trie; go test -benchmem -bench .)
+
+after_success:
+  - $GOPATH/bin/goveralls -coverprofile=coverage.txt -service=travis-ci
