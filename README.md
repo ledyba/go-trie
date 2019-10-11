@@ -11,12 +11,29 @@ It runs faster than [trie to regex](http://google.com/search?q=trie+2+regex) app
 
 Please see [rival](https://github.com/ledyba/go-trie/tree/master/_rivals) directory to benchmarks in other languages.
 
+## benchmark
+
 ```bash
  % make bench
  - php's trie2regex: 742.64 us/op (10000 times)
  - v8's trie2regex: 4.29 us/op (100000 times)
  - golang's trie2regex: 2438.09 us / op (1000 times)
  - go-trie: 24.28 us/op (x 100.40) (100000 times)
+```
+
+## zero heap allocation
+
+`Contains(string)` and `Match(string)` operation do not allocate heaps:
+
+```bash
+% go test -benchmem -bench .
+goos: linux
+goarch: amd64
+pkg: github.com/ledyba/go-trie/matchers/trie
+BenchmarkUnmatchTrie-32                48541       24728 ns/op         0 B/op        0 allocs/op
+PASS
+ok    github.com/ledyba/go-trie/matchers/trie 4.086s
+
 ```
 
 # how to use?
