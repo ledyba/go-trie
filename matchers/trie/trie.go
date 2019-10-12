@@ -94,9 +94,7 @@ func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
 		b := bytes[ib]
 		nextNode := uint16(0)
 		currentNode := nodes[n]
-		currentNodeLen := len(currentNode)
-		for i := 0; i < currentNodeLen; i++ {
-			next := &currentNode[i]
+		for _, next := range currentNode {
 			if b == next.chr {
 				if next.nextIdx == 0 {
 					return true
