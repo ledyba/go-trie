@@ -18,5 +18,5 @@ func main() {
 	}
 	end := time.Now()
 	elapsedInMicro := end.Sub(beg).Microseconds()
-	fmt.Printf(" - golang's trie2regex: %.2f us / op (%d times)\n", float64(elapsedInMicro)/float64(n), n)
+	fmt.Printf(" - golang's trie2regex: %.2f us/op (%d times)\n", float64(elapsedInMicro)/float64(n), n)
 }

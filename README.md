@@ -15,10 +15,11 @@ Please see [rival](https://github.com/ledyba/go-trie/tree/master/_rivals) direct
 
 ```bash
  % make bench
- - php's trie2regex: 742.64 us/op (10000 times)
- - v8's trie2regex: 4.29 us/op (100000 times)
- - golang's trie2regex: 2438.09 us / op (1000 times)
- - go-trie: 24.28 us/op (x 100.40) (100000 times)
+ - go-trie:             21.05   us/op (100000 times)
+ - golang's trie2regex: 2352.65 us/op (1000 times)
+ - php's trie2regex:    728.20  us/op (10000 times)
+ - v8's trie2regex:     4.27    us/op (100000 times)
+
 ```
 
 ## zero heap allocation
