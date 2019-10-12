@@ -87,7 +87,8 @@ func (tr *Trie) Add(str string) {
 	tr.nodes[n].isEnd = true
 }
 func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
-	n := &tr.nodes[0]
+	nodes := tr.nodes
+	n := &nodes[0]
 	for ib := from; ib < len(bytes); ib++ {
 		b := bytes[ib]
 		if n.isEnd {
@@ -95,10 +96,9 @@ func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
 		}
 		var nextNode *node = nil
 		nexts := n.next
-		for j := range nexts {
-			next := &n.next[j]
+		for _, next := range nexts {
 			if next.chr == b {
-				nextNode = &tr.nodes[next.idx]
+				nextNode = &nodes[next.idx]
 				break
 			}
 		}
