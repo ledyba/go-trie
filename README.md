@@ -15,10 +15,10 @@ Please see [rival](https://github.com/ledyba/go-trie/tree/master/_rivals) direct
 
 ```bash
  % make bench
- -             go-trie: 18.60   us/op (100000 times)
- - golang's trie2regex: 2336.16 us/op (  1000 times)
- -    php's trie2regex: 849.18  us/op ( 10000 times)
- -     v8's trie2regex: 4.25    us/op (100000 times)
+ -             go-trie:   17.96 us/op (100000 times)
+ - golang's trie2regex: 2482.64 us/op (  1000 times)
+ -    php's trie2regex:  755.94 us/op ( 10000 times)
+ -     v8's trie2regex:     4.2 us/op (100000 times)
 ```
 
 ## zero heap allocation
@@ -26,14 +26,13 @@ Please see [rival](https://github.com/ledyba/go-trie/tree/master/_rivals) direct
 `Contains(string)` and `Match(string)` operation do not allocate heaps:
 
 ```bash
-% 
+% go test -benchmem -bench .
 goos: linux
 goarch: amd64
 pkg: github.com/ledyba/go-trie/matchers/trie
-BenchmarkUnmatchTrie-32                64381       18400 ns/op         0 B/op        0 allocs/op
+BenchmarkUnmatchTrie-32                64830       18044 ns/op         0 B/op        0 allocs/op
 PASS
 ok    github.com/ledyba/go-trie/matchers/trie 4.086s
-
 ```
 
 # how to use?
