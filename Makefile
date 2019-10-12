@@ -1,4 +1,4 @@
-.PHONY: run bench perf build bench-all bench-other bench-go FORCE;
+.PHONY: run bench stat record build bench-all bench-other bench-go FORCE;
 
 run: bench;
 
@@ -15,7 +15,7 @@ bench: clean
 	@go build -o .bin/bench-regexp github.com/ledyba/go-trie/cmds/bench-regexp
 
 clean:
-	@rm -Rf .bin/ bench
+	@rm -Rf .bin/ bench perf.data perf.data.old
 
 bench-all: bench-go bench-other;
 
@@ -25,9 +25,12 @@ bench-go: clean .bin/bench .bin/bench-regexp FORCE
 	@.bin/bench
 	@.bin/bench-regexp
 
-perf: clean .bin/bench FORCE
+stat: clean .bin/bench FORCE
 	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches .bin/bench
 	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches node _rivals/bench.js
+
+record: clean .bin/bench FORCE
+	perf record -- .bin/bench
 
 bench-other: FORCE
 	@php _rivals/bench.php
