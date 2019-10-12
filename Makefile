@@ -31,6 +31,7 @@ stat: clean .bin/bench FORCE
 
 record: clean .bin/bench FORCE
 	perf record -- .bin/bench
+	hotspot perf.data
 
 bench-other: FORCE
 	@php _rivals/bench.php

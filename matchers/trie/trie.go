@@ -12,7 +12,7 @@ type node []nodeEntry
 
 type nodeEntry struct {
 	chr     byte
-	nextIdx uint16 // "0" means "isEnd", since trie is a tree, not a graph
+	nextIdx uint16 // "0" means "isEnd". It's ok since trie is a tree, not a graph.
 }
 
 func New() *Trie {
@@ -74,11 +74,13 @@ func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
 		return true
 	}
 	n := uint16(0)
-	for ib := from; ib < len(bytes); ib++ {
+	bytesLen := len(bytes)
+	for ib := from; ib < bytesLen; ib++ {
 		b := bytes[ib]
 		nextNode := uint16(0)
 		currentNode := nodes[n]
-		for i := range currentNode {
+		currentNodeLen := len(currentNode)
+		for i := 0; i < currentNodeLen; i++ {
 			next := &currentNode[i]
 			if next.chr == b {
 				if next.nextIdx == 0 {
