@@ -1,11 +1,24 @@
 package trie
 
 import (
+	"sort"
 	"unsafe"
 )
 
 type Trie struct {
 	nodes []node
+}
+
+func (n node) Len() int {
+	return len(n)
+}
+
+func (n node) Less(i, j int) bool {
+	return n[i].chr < n[j].chr
+}
+
+func (n node) Swap(i, j int) {
+	n[i], n[j] = n[j], n[i]
 }
 
 type node []nodeEntry
@@ -20,6 +33,7 @@ func New() *Trie {
 		nodes: []node{{}},
 	}
 }
+
 func FromWords(words []string) *Trie {
 	tr := New()
 	for _, str := range words {
@@ -63,6 +77,7 @@ func (tr *Trie) Add(str string) {
 				})
 				nextNode = idx
 			}
+			sort.Sort(tr.nodes[n])
 		}
 		n = nextNode
 	}
@@ -82,12 +97,14 @@ func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
 		currentNodeLen := len(currentNode)
 		for i := 0; i < currentNodeLen; i++ {
 			next := &currentNode[i]
-			if next.chr == b {
+			if b == next.chr {
 				if next.nextIdx == 0 {
 					return true
 				}
 				nextNode = next.nextIdx
 				break
+			} else if b > next.chr {
+				continue
 			}
 		}
 		if nextNode == 0 {
@@ -104,11 +121,37 @@ func (tr *Trie) Match(str string) bool {
 	return tr.MatchBytes(*(*[]byte)(unsafe.Pointer(&str)))
 }
 func (tr *Trie) Contains(str string) bool {
+	nodes := tr.nodes
+	if len(nodes[0]) == 0 {
+		// Empty trie should match any string.
+		return true
+	}
 	bytes := *(*[]byte)(unsafe.Pointer(&str))
 	bytesLen := len(bytes)
 	for i := 0; i < bytesLen; {
-		if tr.MatchBytesFrom(bytes, i) {
-			return true
+		n := uint16(0)
+		bytesLen := len(bytes)
+		for ib := i; ib < bytesLen; ib++ {
+			b := bytes[ib]
+			nextNode := uint16(0)
+			currentNode := nodes[n]
+			currentNodeLen := len(currentNode)
+			for i := 0; i < currentNodeLen; i++ {
+				next := &currentNode[i]
+				if b == next.chr {
+					if next.nextIdx == 0 {
+						return true
+					}
+					nextNode = next.nextIdx
+					break
+				} else if b > next.chr {
+					continue
+				}
+			}
+			if nextNode == 0 {
+				break
+			}
+			n = nextNode
 		}
 		// see: https://tools.ietf.org/html/rfc3629
 		b := bytes[i]
