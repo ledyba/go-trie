@@ -26,8 +26,8 @@ bench-go: clean .bin/bench .bin/bench-regexp FORCE
 	@.bin/bench-regexp
 
 stat: clean .bin/bench FORCE
-	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches .bin/bench
-	perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches node _rivals/bench.js
+	perf stat -e branches -e branch-misses -e cache-references -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches -e cpu-cycles -e instructions -e stalled-cycles-backend -e stalled-cycles-frontend .bin/bench
+	perf stat -e branches -e branch-misses -e cache-references -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-prefetches -e cpu-cycles -e instructions -e stalled-cycles-backend -e stalled-cycles-frontend node _rivals/bench.js
 
 record: clean .bin/bench FORCE
 	perf record -- .bin/bench

@@ -2,6 +2,16 @@ package trie
 
 import "testing"
 
+func TestEmpty(t *testing.T) {
+	tr := New()
+	if !tr.Match("") {
+		t.Error("空のトライ木は空文字でもマッチする")
+	}
+	if !tr.Match("zoi") {
+		t.Error("空のトライ木はzoiでもマッチする")
+	}
+}
+
 func TestZoi(t *testing.T) {
 	tr := New()
 	tr.Add("zoi")
