@@ -103,8 +103,8 @@ func (tr *Trie) MatchBytesFrom(bytes []byte, from int) bool {
 				}
 				nextNode = next.nextIdx
 				break
-			} else if b > next.chr {
-				continue
+			} else if b < next.chr {
+				break
 			}
 		}
 		if nextNode == 0 {
@@ -144,8 +144,8 @@ func (tr *Trie) Contains(str string) bool {
 					}
 					nextNode = next.nextIdx
 					break
-				} else if b > next.chr {
-					continue
+				} else if b < next.chr {
+					break
 				}
 			}
 			if nextNode == 0 {
