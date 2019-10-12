@@ -10,7 +10,7 @@ import (
 
 func main() {
 	tr := trie.FromWords(test_util.Words)
-	N := 100000
+	N := 1000000
 	n := 0
 	beg := time.Now()
 	for i := 0; i < N; i++ {
